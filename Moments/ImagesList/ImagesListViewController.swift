@@ -33,7 +33,7 @@ class ImagesListViewController: UIViewController {
     }
     
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        let likeName = indexPath.row % 2 == 0 ? "heart" : "heart-filled" 
+        let likeName = indexPath.row % 2 == 0 ? "heart" : "heart-filled"
         
         guard let likeImage = UIImage(named: likeName) else {
             print("Не удалось создать картинку для кнопки 'лайк' по индексу \(indexPath.row)")
