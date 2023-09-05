@@ -32,9 +32,29 @@ class ImagesListViewController: UIViewController {
         )
     }
     
+    private func getGradien(cell: ImagesListCell) -> CAGradientLayer {
+        let gradient = CAGradientLayer()
+        gradient.frame = cell.gradientView.bounds
+        gradient.colors = [UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor, UIColor.ypBlack.cgColor]
+        gradient.opacity = 0.5
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 0, y: 1)
+        
+        return gradient
+    }
+    
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         let likeName = indexPath.row % 2 == 0 ? "heart" : "heart-filled"
         
+        if (cell.gradient == nil) {
+            let gradient = getGradien(cell: cell)
+
+            cell.gradientView.roundCorners(corners: [.bottomLeft, .bottomRight],radius: 16)
+            cell.gradientView.layer.insertSublayer(gradient, at: 0)
+            cell.gradient = gradient
+        }
+        
+       
         guard let likeImage = UIImage(named: likeName) else {
             print("Не удалось создать картинку для кнопки 'лайк' по индексу \(indexPath.row)")
             return

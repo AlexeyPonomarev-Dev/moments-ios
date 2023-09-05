@@ -37,6 +37,12 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkR-7s-6Cf" userLabel="gradientView">
+                                                    <rect key="frame" x="16" y="177" width="361" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="aPC-ml-HQR"/>
+                                                    </constraints>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcK-4W-lhM" userLabel="Date label">
                                                     <rect key="frame" x="24" y="183" width="345" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -58,11 +64,14 @@
                                             <constraints>
                                                 <constraint firstItem="MIt-1m-kbh" firstAttribute="bottom" secondItem="jcK-4W-lhM" secondAttribute="bottom" constant="8" id="4dH-bn-UQ3"/>
                                                 <constraint firstItem="MIt-1m-kbh" firstAttribute="trailing" secondItem="jcK-4W-lhM" secondAttribute="trailing" constant="8" id="4yk-G6-GSs"/>
+                                                <constraint firstItem="MIt-1m-kbh" firstAttribute="trailing" secondItem="NkR-7s-6Cf" secondAttribute="trailing" id="5Ey-pB-Iqt"/>
                                                 <constraint firstAttribute="bottom" secondItem="MIt-1m-kbh" secondAttribute="bottom" constant="4" id="CTb-9l-1uG"/>
+                                                <constraint firstItem="MIt-1m-kbh" firstAttribute="bottom" secondItem="NkR-7s-6Cf" secondAttribute="bottom" id="K40-oY-H4x"/>
                                                 <constraint firstItem="qZd-Vy-div" firstAttribute="top" secondItem="MIt-1m-kbh" secondAttribute="top" id="ZiD-el-otu"/>
                                                 <constraint firstAttribute="trailing" secondItem="MIt-1m-kbh" secondAttribute="trailing" constant="16" id="k3z-tF-Axg"/>
                                                 <constraint firstItem="jcK-4W-lhM" firstAttribute="leading" secondItem="MIt-1m-kbh" secondAttribute="leading" constant="8" id="ksd-HY-Uvv"/>
                                                 <constraint firstItem="MIt-1m-kbh" firstAttribute="trailing" secondItem="qZd-Vy-div" secondAttribute="trailing" id="lPm-eo-Pjg"/>
+                                                <constraint firstItem="NkR-7s-6Cf" firstAttribute="leading" secondItem="MIt-1m-kbh" secondAttribute="leading" id="vZR-TD-Xle"/>
                                                 <constraint firstItem="MIt-1m-kbh" firstAttribute="top" secondItem="2DI-hZ-pfN" secondAttribute="top" constant="4" id="xSM-IT-g4q"/>
                                                 <constraint firstItem="MIt-1m-kbh" firstAttribute="leading" secondItem="2DI-hZ-pfN" secondAttribute="leading" constant="16" id="xlk-23-Si8"/>
                                             </constraints>
@@ -70,6 +79,7 @@
                                         <color key="backgroundColor" name="YPBlack"/>
                                         <connections>
                                             <outlet property="dateLabel" destination="jcK-4W-lhM" id="NmG-2r-mAE"/>
+                                            <outlet property="gradientView" destination="NkR-7s-6Cf" id="GSE-9d-oJ2"/>
                                             <outlet property="likeButton" destination="qZd-Vy-div" id="G1H-0s-IoC"/>
                                             <outlet property="preview" destination="MIt-1m-kbh" id="nCx-uC-4IU"/>
                                         </connections>
@@ -92,14 +102,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14.018691588785046" y="-182.72138228941685"/>
+            <point key="canvasLocation" x="12.977099236641221" y="-183.09859154929578"/>
         </scene>
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
         <image name="heart-filled" width="30" height="27.5"/>
         <namedColor name="YPBlack">
-            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="YPWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
