@@ -5,7 +5,6 @@
 //  Created by Alexey Ponomarev on 03.09.2023.
 //
 
-import Foundation
 import UIKit
 
 final class ImagesListCell: UITableViewCell {

@@ -56,12 +56,10 @@ class ImagesListViewController: UIViewController {
         
        
         guard let likeImage = UIImage(named: likeName) else {
-            print("Не удалось создать картинку для кнопки 'лайк' по индексу \(indexPath.row)")
             return
         }
         
         guard let previewImage = UIImage(named: photosName[indexPath.row]) else {
-            print("Не удалось создать картинку для превью по индексу \(indexPath.row)")
             return
         }
 
@@ -73,7 +71,7 @@ class ImagesListViewController: UIViewController {
 
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photosName.count
+        photosName.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,8 +83,6 @@ extension ImagesListViewController: UITableViewDelegate {
         
         // пробуем привести ячейку к типу нашей кастомной ячейки
         guard let imageListCell = cell as? ImagesListCell else {
-            // в случае не удачи возвращаем пустую ячейки и лоигруем это в консоль
-            print("Ошибка создания ячейки")
             return UITableViewCell()
         }
         
