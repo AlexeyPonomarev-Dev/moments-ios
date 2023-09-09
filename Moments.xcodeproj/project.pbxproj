@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		996AF12D2AA6F8860092D871 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996AF12C2AA6F8860092D871 /* UIColor+Extensions.swift */; };
 		99B15CC52AA7B93000F83806 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B15CC42AA7B93000F83806 /* UIView+Extensions.swift */; };
+		99B15CC72AAC4CA300F83806 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B15CC62AAC4CA300F83806 /* ProfileViewController.swift */; };
 		99BD1A362A9D2EE2005456AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BD1A352A9D2EE2005456AA /* AppDelegate.swift */; };
 		99BD1A382A9D2EE2005456AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BD1A372A9D2EE2005456AA /* SceneDelegate.swift */; };
 		99BD1A3A2A9D2EE2005456AA /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BD1A392A9D2EE2005456AA /* ImagesListViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		996AF12C2AA6F8860092D871 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		99B15CC42AA7B93000F83806 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		99B15CC62AAC4CA300F83806 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		99BD1A322A9D2EE2005456AA /* Moments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99BD1A352A9D2EE2005456AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99BD1A372A9D2EE2005456AA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +54,26 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		99B15CC82AAC4CCD00F83806 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				99BD1A3E2A9D2EE3005456AA /* Assets.xcassets */,
+				99BD1A402A9D2EE3005456AA /* LaunchScreen.storyboard */,
+				99BD1A432A9D2EE3005456AA /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		99B15CC92AAC4CF400F83806 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				99BD1A6B2AA4F96B005456AA /* ImagesList */,
+				99BD1A3B2A9D2EE2005456AA /* Main.storyboard */,
+				99B15CC62AAC4CA300F83806 /* ProfileViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		99BD1A292A9D2EE2005456AA = {
 			isa = PBXGroup;
 			children = (
@@ -72,13 +94,10 @@
 			isa = PBXGroup;
 			children = (
 				996AF12B2AA6F85E0092D871 /* Helpers */,
+				99B15CC92AAC4CF400F83806 /* Presentation */,
+				99B15CC82AAC4CCD00F83806 /* Resources */,
 				99BD1A352A9D2EE2005456AA /* AppDelegate.swift */,
 				99BD1A372A9D2EE2005456AA /* SceneDelegate.swift */,
-				99BD1A6B2AA4F96B005456AA /* ImagesList */,
-				99BD1A3B2A9D2EE2005456AA /* Main.storyboard */,
-				99BD1A3E2A9D2EE3005456AA /* Assets.xcassets */,
-				99BD1A402A9D2EE3005456AA /* LaunchScreen.storyboard */,
-				99BD1A432A9D2EE3005456AA /* Info.plist */,
 			);
 			path = Moments;
 			sourceTree = "<group>";
@@ -167,6 +186,7 @@
 				99BD1A3A2A9D2EE2005456AA /* ImagesListViewController.swift in Sources */,
 				996AF12D2AA6F8860092D871 /* UIColor+Extensions.swift in Sources */,
 				99BD1A6A2AA4F934005456AA /* ImagesListCell.swift in Sources */,
+				99B15CC72AAC4CA300F83806 /* ProfileViewController.swift in Sources */,
 				99BD1A362A9D2EE2005456AA /* AppDelegate.swift in Sources */,
 				99BD1A382A9D2EE2005456AA /* SceneDelegate.swift in Sources */,
 			);
@@ -316,7 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Moments/Info.plist;
+				INFOPLIST_FILE = Moments/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -346,7 +366,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Moments/Info.plist;
+				INFOPLIST_FILE = Moments/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
