@@ -47,6 +47,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		991C27E42AC020600095F968 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				99B15CC62AAC4CA300F83806 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		991C27E52AC0206B0095F968 /* SingleImage */ = {
+			isa = PBXGroup;
+			children = (
+				99B15CCA2AB6D02C00F83806 /* SingleImageViewController.swift */,
+			);
+			path = SingleImage;
+			sourceTree = "<group>";
+		};
 		996AF12B2AA6F85E0092D871 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -69,10 +85,10 @@
 		99B15CC92AAC4CF400F83806 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				99BD1A6B2AA4F96B005456AA /* ImagesList */,
 				99BD1A3B2A9D2EE2005456AA /* Main.storyboard */,
-				99B15CC62AAC4CA300F83806 /* ProfileViewController.swift */,
-				99B15CCA2AB6D02C00F83806 /* SingleImageViewController.swift */,
+				99BD1A6B2AA4F96B005456AA /* ImagesList */,
+				991C27E42AC020600095F968 /* Profile */,
+				991C27E52AC0206B0095F968 /* SingleImage */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";

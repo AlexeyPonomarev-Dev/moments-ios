@@ -225,7 +225,7 @@
         <image name="0" width="200" height="132"/>
         <image name="backward" width="9" height="16"/>
         <image name="heart-filled" width="30" height="27.5"/>
-        <image name="sharing" width="50" height="50"/>
+        <image name="sharing" width="50.5" height="50"/>
         <image name="tab_editorial_active" width="20.5" height="22"/>
         <image name="tab_profile_active" width="24.5" height="24"/>
         <namedColor name="YPBlack">
