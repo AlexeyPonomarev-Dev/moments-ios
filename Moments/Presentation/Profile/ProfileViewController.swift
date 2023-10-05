@@ -93,14 +93,15 @@ final class ProfileViewController: UIViewController {
         verticalStack.addArrangedSubview(nameLabel)
         verticalStack.addArrangedSubview(nikNameLabel)
         verticalStack.addArrangedSubview(descriptionLabel)
-        
-        view.addSubview(horizontalStack)
-        view.insertSubview(verticalStack, belowSubview: horizontalStack)
+
 
         setupViewConstraints()
     }
     
     private func setupViewConstraints() {
+        view.addSubview(horizontalStack)
+        view.insertSubview(verticalStack, belowSubview: horizontalStack)
+
         NSLayoutConstraint.activate([
             avatarImageView.widthAnchor.constraint(equalToConstant: 70),
             avatarImageView.heightAnchor.constraint(equalToConstant: 70),
