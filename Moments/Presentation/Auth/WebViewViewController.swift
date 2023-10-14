@@ -13,6 +13,13 @@ protocol WebViewViewControllerDelegate: AnyObject {
     func webViewViewControllerDidCancel(_ vc: WebViewViewController)
 }
 
+private enum QueryKeys {
+    static let clientId: String = "client_id"
+    static let redirectUri: String = "redirect_uri"
+    static let responseType: String = "response_type"
+    static let scope: String = "scope"
+}
+
 final class WebViewViewController: UIViewController {
     @IBOutlet private var webView: WKWebView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -24,12 +31,12 @@ final class WebViewViewController: UIViewController {
         
         webView.navigationDelegate = self
 
-        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
+        var urlComponents = URLComponents(string: Constants.unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: AccessKey),
-            URLQueryItem(name: "redirect_uri", value: RedirectUri),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: AccessScope)
+            URLQueryItem(name: QueryKeys.clientId, value: Constants.accessKey),
+            URLQueryItem(name: QueryKeys.redirectUri, value: Constants.redirectUri),
+            URLQueryItem(name: QueryKeys.responseType, value: "code"),
+            URLQueryItem(name: QueryKeys.scope, value: Constants.accessScope)
         ]
         let url = urlComponents.url!
         
@@ -97,15 +104,15 @@ extension WebViewViewController {
         change: [NSKeyValueChangeKey : Any]?,
         context: UnsafeMutableRawPointer?
     ) {
-            if keyPath == #keyPath(WKWebView.estimatedProgress) {
-                updateProgress()
-            } else {
-                super.observeValue(
-                    forKeyPath: keyPath,
-                    of: object,
-                    change: change,
-                    context: context)
-            }
+        if keyPath == #keyPath(WKWebView.estimatedProgress) {
+            updateProgress()
+        } else {
+            super.observeValue(
+                forKeyPath: keyPath,
+                of: object,
+                change: change,
+                context: context)
+        }
     }
     
     private func updateProgress() {
