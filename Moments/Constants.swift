@@ -15,6 +15,16 @@ public enum Constants {
     static let accessScope: String = "public+read_user+write_likes"
     static let unsplashAuthorizeURLString: String = "https://unsplash.com/oauth/authorize"
     static let unsplashTokenURLString: String = "https://unsplash.com/oauth/token"
+    static let profilePath: String = "/me"
+    static let profilePublicPath: String = "/users"
+    
+    static let token = "Auth token"
+    static let main = "Main"
+    
+    static let tabBarIdentifier = "TabBarViewController"
+    static let authIdentifier = "AuthViewController"
+    static let imageListItentifier = "ImagesListViewController"
+
 }
 
 

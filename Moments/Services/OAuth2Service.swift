@@ -1,15 +1,22 @@
 import Foundation
+import SwiftKeychainWrapper
 
-final class OAuth2Service {
+final class OAuth2Service {    
     static let shared = OAuth2Service()
+    private var lastCode: String?
+    private var task: URLSessionTask?
     private let urlSession = URLSession.shared
     private (set) var authToken: String? {
         get {
-            return OAuth2TokenStorage().token
+            return KeychainWrapper.standard.string(forKey: Constants.token)
         }
         set {
             guard let value = newValue else { return }
-            OAuth2TokenStorage().token = value
+
+            let isSuccess = KeychainWrapper.standard.set(value, forKey: Constants.token)
+            guard isSuccess else {
+                fatalError("не удалось сохранить токен в безопасное хранилище")
+            }
         }
     }
 
@@ -17,44 +24,37 @@ final class OAuth2Service {
         _ code: String,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
+        
+        assert(Thread.isMainThread)
+
+        if lastCode == code { return }
+        task?.cancel()
+        lastCode = code
+
         let request = authTokenRequest(code: code)
-        let task = object(for: request) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let body):
-                let authToken = body.accessToken
-                self.authToken = authToken
-                completion(.success(authToken))
-            case .failure(let error):
-                completion(.failure(error))
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+
+                switch result {
+                case .success(let body):
+                    let authToken = body.accessToken
+                    self.authToken = authToken
+                    completion(.success(authToken))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
+
         }
 
+        self.task = task
         task.resume()
     }
 }
 
 extension OAuth2Service {
-    private func object(
-        for request: URLRequest,
-        completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void
-    ) -> URLSessionTask {
-        let decoder = JSONDecoder()
-        return urlSession.data(for: request) { (result: Result<Data, Error>) in
-            switch result {
-            case .success(let data):
-                do {
-                    let object = try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                    completion(.success(object))
-                } catch {
-                    completion(.failure(error))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
     private func authTokenRequest(code: String) -> URLRequest {
         URLRequest.makeHTTPRequest(
             path: "/oauth/token"

@@ -6,8 +6,17 @@
 //
 
 import UIKit
+import ProgressHUD
+import Kingfisher
+import SwiftKeychainWrapper
 
 final class ProfileViewController: UIViewController {
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+    private enum Sizes {
+        static let profileAvatarSize = CGFloat(70)
+    }
+    
     private lazy var horizontalStack: UIStackView = {
         let stack = UIStackView()
         
@@ -34,7 +43,9 @@ final class ProfileViewController: UIViewController {
         let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "profile-avatar")
+        imageView.image = UIImage(named: "avatar-placeholder")
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = Sizes.profileAvatarSize / 2
         
         return imageView
     }()
@@ -43,7 +54,6 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Екатерина Новикова"
         label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
         label.textColor = UIColor.ypWhite
         
@@ -54,7 +64,6 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "@ekaterina_nov"
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         label.textColor = UIColor.ypGray
         
@@ -65,7 +74,6 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hello, world!"
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         label.textColor = UIColor.ypWhite
         
@@ -87,6 +95,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+
         horizontalStack.addArrangedSubview(avatarImageView)
         horizontalStack.addArrangedSubview(logoutButton)
     
@@ -94,6 +103,7 @@ final class ProfileViewController: UIViewController {
         verticalStack.addArrangedSubview(nikNameLabel)
         verticalStack.addArrangedSubview(descriptionLabel)
 
+        updateProfileDetails()
 
         setupViewConstraints()
     }
@@ -103,8 +113,8 @@ final class ProfileViewController: UIViewController {
         view.insertSubview(verticalStack, belowSubview: horizontalStack)
 
         NSLayoutConstraint.activate([
-            avatarImageView.widthAnchor.constraint(equalToConstant: 70),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 70),
+            avatarImageView.widthAnchor.constraint(equalToConstant: Sizes.profileAvatarSize),
+            avatarImageView.heightAnchor.constraint(equalToConstant: Sizes.profileAvatarSize),
             
             logoutButton.widthAnchor.constraint(equalToConstant: 48),
             logoutButton.heightAnchor.constraint(equalToConstant: 48),
@@ -119,9 +129,42 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
+
+}
+
+extension ProfileViewController {
     @objc
     private func didTapedLogoutButton() {
         print("Logout button pressed")
     }
     
+    private func updateProfileDetails() {
+        nameLabel.text = profileService.profile?.name
+        nikNameLabel.text = profileService.profile?.loginName
+        descriptionLabel.text = profileService.profile?.bio
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "avatar-placeholder"),
+            options: [.transition(.fade(1))]
+        )
+    }
 }
