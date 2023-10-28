@@ -6,14 +6,33 @@
 //
 
 import UIKit
+import ProgressHUD
+import Kingfisher
+import SwiftKeychainWrapper
 
 final class ProfileViewController: UIViewController {
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+    private enum Constants {
+        static let profileAvatarSize: CGFloat = 70
+        static let logoutButtonSize: CGFloat = 48
+        static let horizontalStackSpacing: CGFloat = 20
+        static let verticalStackSpacing: CGFloat = 8
+        static let horizontalStackTopAnchor: CGFloat = 32
+        static let horiozontalPadding: CGFloat = 16
+        static let horiozontalPaddingNegative: CGFloat = -16
+        static let fontSizeLarge: CGFloat = 23
+        static let fontSizeSmall: CGFloat = 13
+        static let avatarPlaceholderName: String = "avatar-placeholder"
+        static let logoutIconName: String = "logout"
+    }
+    
     private lazy var horizontalStack: UIStackView = {
         let stack = UIStackView()
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
-        stack.spacing = 20
+        stack.spacing = Constants.horizontalStackSpacing
         stack.distribution = .equalSpacing
         stack.alignment = .center
         
@@ -25,7 +44,7 @@ final class ProfileViewController: UIViewController {
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 8
+        stack.spacing = Constants.verticalStackSpacing
         
         return stack
     }()
@@ -34,7 +53,9 @@ final class ProfileViewController: UIViewController {
         let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "profile-avatar")
+        imageView.image = UIImage(named: Constants.avatarPlaceholderName)
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = Constants.profileAvatarSize / 2
         
         return imageView
     }()
@@ -43,8 +64,7 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Екатерина Новикова"
-        label.font = UIFont.systemFont(ofSize: 23, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: Constants.fontSizeLarge, weight: .bold)
         label.textColor = UIColor.ypWhite
         
         return label
@@ -54,8 +74,7 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "@ekaterina_nov"
-        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: Constants.fontSizeSmall, weight: .medium)
         label.textColor = UIColor.ypGray
         
         return label
@@ -65,8 +84,7 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hello, world!"
-        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: Constants.fontSizeSmall, weight: .medium)
         label.textColor = UIColor.ypWhite
         
         return label
@@ -76,7 +94,7 @@ final class ProfileViewController: UIViewController {
         let button = UIButton()
         
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "logout"), for: .normal)
+        button.setImage(UIImage(named: Constants.logoutIconName), for: .normal)
         button.tintColor = UIColor.ypRed
         button.addTarget(
             self, action: #selector(self.didTapedLogoutButton),
@@ -87,6 +105,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+
         horizontalStack.addArrangedSubview(avatarImageView)
         horizontalStack.addArrangedSubview(logoutButton)
     
@@ -94,6 +113,7 @@ final class ProfileViewController: UIViewController {
         verticalStack.addArrangedSubview(nikNameLabel)
         verticalStack.addArrangedSubview(descriptionLabel)
 
+        updateProfileDetails()
 
         setupViewConstraints()
     }
@@ -103,25 +123,58 @@ final class ProfileViewController: UIViewController {
         view.insertSubview(verticalStack, belowSubview: horizontalStack)
 
         NSLayoutConstraint.activate([
-            avatarImageView.widthAnchor.constraint(equalToConstant: 70),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 70),
+            avatarImageView.widthAnchor.constraint(equalToConstant: Constants.profileAvatarSize),
+            avatarImageView.heightAnchor.constraint(equalToConstant: Constants.profileAvatarSize),
             
-            logoutButton.widthAnchor.constraint(equalToConstant: 48),
-            logoutButton.heightAnchor.constraint(equalToConstant: 48),
+            logoutButton.widthAnchor.constraint(equalToConstant: Constants.logoutButtonSize),
+            logoutButton.heightAnchor.constraint(equalToConstant: Constants.logoutButtonSize),
             
-            horizontalStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-            horizontalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            horizontalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            horizontalStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.horizontalStackTopAnchor),
+            horizontalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horiozontalPadding),
+            horizontalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.horiozontalPaddingNegative),
             
-            verticalStack.topAnchor.constraint(equalTo: horizontalStack.bottomAnchor, constant: 8),
-            verticalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            verticalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            verticalStack.topAnchor.constraint(equalTo: horizontalStack.bottomAnchor, constant: Constants.verticalStackSpacing),
+            verticalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horiozontalPadding),
+            verticalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.horiozontalPaddingNegative),
         ])
     }
     
+
+}
+
+extension ProfileViewController {
     @objc
     private func didTapedLogoutButton() {
         print("Logout button pressed")
     }
     
+    private func updateProfileDetails() {
+        nameLabel.text = profileService.profile?.name
+        nikNameLabel.text = profileService.profile?.loginName
+        descriptionLabel.text = profileService.profile?.bio
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: Constants.avatarPlaceholderName),
+            options: [.transition(.fade(1))]
+        )
+    }
 }
