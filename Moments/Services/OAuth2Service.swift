@@ -19,6 +19,8 @@ final class OAuth2Service {
             }
         }
     }
+    
+    private init() {}
 
     func fetchOAuthToken(
         _ code: String,

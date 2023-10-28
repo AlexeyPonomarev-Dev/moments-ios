@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct ProfileResponseBody: Decodable {
     let username, firstName: String
     let lastName, bio: String?
@@ -18,5 +17,4 @@ struct ProfileResponseBody: Decodable {
         case lastName = "last_name"
         case bio
     }
-
 }

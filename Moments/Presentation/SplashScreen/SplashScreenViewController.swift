@@ -10,7 +10,7 @@ import SwiftKeychainWrapper
 
 final class SplashScreenViewController: UIViewController {
     
-    private let oAuth2Service = OAuth2Service()
+    private let oAuth2Service = OAuth2Service.shared
     private let profileService = ProfileService.shared
     private var alertPresenter: AlertPresenter?
     private lazy var logoImageView = {
