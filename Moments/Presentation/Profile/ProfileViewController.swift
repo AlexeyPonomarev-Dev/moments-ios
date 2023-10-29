@@ -114,7 +114,6 @@ final class ProfileViewController: UIViewController {
         verticalStack.addArrangedSubview(descriptionLabel)
 
         updateProfileDetails()
-
         setupViewConstraints()
     }
     
@@ -169,6 +168,8 @@ extension ProfileViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
+
+        ImagesListService.shared.fetchPhotosNextPage()
 
         avatarImageView.kf.indicatorType = .activity
         avatarImageView.kf.setImage(

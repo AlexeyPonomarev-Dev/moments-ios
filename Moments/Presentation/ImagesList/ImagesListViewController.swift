@@ -121,6 +121,16 @@ extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
     }
+    
+    func tableView(
+      _ tableView: UITableView,
+      willDisplay cell: UITableViewCell,
+      forRowAt indexPath: IndexPath
+    ) {
+        if indexPath.row + 1 == ImagesListService.shared.photos.count {
+            ImagesListService.shared.fetchPhotosNextPage()
+        }
+    }
 }
 
 extension ImagesListViewController: UITableViewDataSource {

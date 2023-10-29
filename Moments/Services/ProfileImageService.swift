@@ -64,7 +64,7 @@ final class ProfileImageService {
 extension ProfileImageService {
     private func profileImageRequest(_ userName: String) -> URLRequest {
         URLRequest.makeHTTPRequest(
-            path: "\(Constants.profilePublicPath)/\(userName)",
+            path: "\(Constants.usersPath)/\(userName)",
             httpMethod: "GET"
         )
     }
