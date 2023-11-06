@@ -25,7 +25,7 @@ final class ProfileService {
         self.task?.cancel()
         
         let request = profileRequest(token)
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResponseBody, Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
         
             DispatchQueue.main.async {
                 guard let self = self else { return }

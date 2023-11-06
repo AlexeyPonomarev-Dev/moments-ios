@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OAuthTokenResponseBody: Decodable {
+struct OAuthTokenResult: Decodable {
     let accessToken: String
     let tokenType: String
     let scope: String

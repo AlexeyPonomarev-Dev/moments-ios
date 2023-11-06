@@ -27,6 +27,15 @@ final class AlertPresenter {
             
         }
         
+        if let secondButtonText = data.secondButtonText {
+            let secondAction = UIAlertAction(title: secondButtonText, style: .default) { _ in
+                data.secondCompletion()
+            }
+
+            alert.addAction(secondAction)
+        }
+        
+        
         alert.view.accessibilityIdentifier = "Alert"
     
         alert.addAction(action)

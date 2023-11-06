@@ -29,14 +29,12 @@ final class ImagesListService {
     
         assert(Thread.isMainThread)
         guard let token = KeychainWrapper.standard.string(forKey: Constants.token) else { return }
-        guard let userName = ProfileService.shared.profile?.userName else { return }
 
         let nextPage = lastLoadedPage == nil
         ? 1
         : lastLoadedPage! + 1
     
         var request = imageListRequest(
-            userName: userName,
             page: nextPage,
             perPage: Keys.perPage
         )
@@ -57,7 +55,7 @@ final class ImagesListService {
                             welcomeDescription: el.description,
                             thumbImageURL: el.urls.thumb,
                             largeImageURL: el.urls.regular,
-                            isLiked: el.likes > 0
+                            isLiked: el.isLiked
                         )
                         self.photos.append(photo)
                     }
@@ -78,13 +76,60 @@ final class ImagesListService {
         task.resume()
         self.task = task
     }
+    
+    func changeLike(
+        photoId: String,
+        isLike: Bool,
+        _ completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        assert(Thread.isMainThread)
+        if task != nil { return }
+        guard let token = KeychainWrapper.standard.string(forKey: Constants.token) else { return }
+
+
+        let method = isLike ? HttpMethods.delete : HttpMethods.post
+        var request = likeRequest(photoId: photoId, method: method)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<LikeResult, Error>)  in
+            
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let body):
+                    let isLiked = body.photo.isLiked
+                    if let curenetPhotoIndex = self.photos.firstIndex(where: { $0.id == photoId }) {
+                        let photo = self.photos[curenetPhotoIndex]
+                        self.photos[curenetPhotoIndex].isLiked = isLiked
+                    }
+                    completion(.success(isLiked))
+                    self.task = nil
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                    self.task = nil
+                }
+            }
+        }
+        
+        self.task = task
+        task.resume()
+    }
 }
 
 extension ImagesListService {
-    private func imageListRequest(userName: String, page: Int, perPage: Int) -> URLRequest {
+    private func imageListRequest(page: Int, perPage: Int) -> URLRequest {
         URLRequest.makeHTTPRequest(
-            path: "\(Constants.usersPath)/\(userName)\(Constants.photosPath)?page=\(page)&per_page=\(perPage)",
+            path: "\(Constants.photosPath)/?page=\(page)&per_page=\(perPage)",
             httpMethod: "GET"
+        )
+    }
+    
+    private func likeRequest(photoId: String, method: String) -> URLRequest {
+        URLRequest.makeHTTPRequest(
+            path: "\(Constants.photosPath)/\(photoId)/like",
+            httpMethod: method
         )
     }
 }

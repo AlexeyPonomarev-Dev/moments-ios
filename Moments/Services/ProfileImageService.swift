@@ -31,7 +31,7 @@ final class ProfileImageService {
 
         var request = profileImageRequest(userName)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResponseBody ,Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult ,Error>) in
         
             DispatchQueue.main.async {
                 guard let self = self else { return }

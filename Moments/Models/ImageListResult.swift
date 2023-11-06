@@ -15,11 +15,13 @@ struct ImagesListItem: Codable {
     let description: String?
     let likes: Int
     let urls: Urls
+    let isLiked: Bool
 
     enum CodingKeys: String, CodingKey {
         case id
         case createdAt = "created_at"
         case width, height, description, likes, urls
+        case isLiked = "liked_by_user"
     }
 }
 
@@ -31,4 +33,16 @@ struct Urls: Codable {
         case raw, full, regular, small, thumb
         case smallS3 = "small_s3"
     }
+}
+
+struct PhotoLikeResult: Codable {
+    let isLiked: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case isLiked = "liked_by_user"
+    }
+}
+
+struct LikeResult: Codable {
+    let photo: PhotoLikeResult
 }

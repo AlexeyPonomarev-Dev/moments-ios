@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProfileResponseBody: Decodable {
+struct ProfileResult: Decodable {
     let username, firstName: String
     let lastName, bio: String?
     
