@@ -14,7 +14,7 @@ final class AlertPresenter {
         self.view = view
     }
 
-    func show(data: AlertModel) {
+    func show(_ data: AlertModel) {
         let alert = UIAlertController(
             title: data.title,
             message: data.message,

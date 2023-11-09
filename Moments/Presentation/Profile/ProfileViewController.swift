@@ -13,6 +13,8 @@ import SwiftKeychainWrapper
 final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    private var alertPresenter: AlertPresenter? = nil
+    
     private enum Constants {
         static let profileAvatarSize: CGFloat = 70
         static let logoutButtonSize: CGFloat = 48
@@ -115,6 +117,8 @@ final class ProfileViewController: UIViewController {
 
         updateProfileDetails()
         setupViewConstraints()
+        
+        alertPresenter = AlertPresenter(view: self)
     }
     
     private func setupViewConstraints() {
@@ -144,7 +148,7 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController {
     @objc
     private func didTapedLogoutButton() {
-        print("Logout button pressed")
+        showLogoutAlert()
     }
     
     private func updateProfileDetails() {
@@ -175,5 +179,32 @@ extension ProfileViewController {
             placeholder: UIImage(named: Constants.avatarPlaceholderName),
             options: [.transition(.fade(1))]
         )
+    }
+    
+    private func logout() {
+        OAuth2TokenStorage().token = nil
+        WebViewViewController.clean()
+        
+        guard let window = UIApplication.shared.windows.first else {
+            assertionFailure("Something went wrong")
+            return
+        }
+        
+        window.rootViewController = SplashScreenViewController()
+    }
+    
+    private func showLogoutAlert() {
+        let alert = AlertModel(
+            title: "Выйти?",
+            message: "Вы уверны что хотите выйти?",
+            buttonText: "Остаться",
+            completion: nil,
+            secondButtonText: "Выйти",
+            secondCompletion: { [weak self] in
+                guard let self = self else { return }
+                self.logout()
+            }
+        )
+        alertPresenter?.show(alert)
     }
 }

@@ -78,7 +78,7 @@ final class SingleImageViewController: UIViewController {
                 downloadImage()
             })
     
-        alertPresenter?.show(data: alert)
+        alertPresenter?.show(alert)
     }
 
     private func rescaleAndCenterImageInScrollView(image: UIImage) {

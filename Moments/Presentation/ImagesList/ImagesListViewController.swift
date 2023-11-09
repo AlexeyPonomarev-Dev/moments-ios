@@ -92,17 +92,7 @@ final class ImagesListViewController: UIViewController {
         cell.preview.kf.setImage(
             with: photoURL,
             placeholder: placholder
-        ) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(_): break
-//                    self.removeGradient()
-                case .failure:
-//                    self.removeGradient()
-                cell.imageView?.image = placholder
-            }
-        }
+        )
         cell.dateLabel.text = dateFormatter.string(from: Date())
         cell.likeButton.setImage(likeImage, for: .normal)
     }
@@ -143,7 +133,7 @@ final class ImagesListViewController: UIViewController {
             buttonText: "Ok",
             completion: nil)
         
-        alertPresenter?.show(data: alert)
+        alertPresenter?.show(alert)
     }
 }
 

@@ -90,8 +90,7 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
     }
     
     func fetchProfile(_ token: String) {
-        profileService.fetchProfile(
-            token) { [weak self] result in
+        profileService.fetchProfile(token) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success:
@@ -99,6 +98,7 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
                     UIBlockingProgressHUD.dismiss()
                 case .failure:
                     UIBlockingProgressHUD.dismiss()
+                    OAuth2TokenStorage().token = nil
                     self.showError()
                     break
                 }
@@ -108,7 +108,7 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
 
 extension SplashScreenViewController {
     private func showError() {
-        alertPresenter?.show(data: AlertModel(
+        alertPresenter?.show(AlertModel(
             title: "Что-то пошло не так",
             message: "Не удалось войти в систему",
             buttonText: "ОК",

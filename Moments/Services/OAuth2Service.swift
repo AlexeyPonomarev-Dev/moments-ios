@@ -1,5 +1,4 @@
 import Foundation
-import SwiftKeychainWrapper
 
 final class OAuth2Service {    
     static let shared = OAuth2Service()
@@ -8,15 +7,10 @@ final class OAuth2Service {
     private let urlSession = URLSession.shared
     private (set) var authToken: String? {
         get {
-            return KeychainWrapper.standard.string(forKey: Constants.token)
+            return OAuth2TokenStorage().token
         }
         set {
-            guard let value = newValue else { return }
-
-            let isSuccess = KeychainWrapper.standard.set(value, forKey: Constants.token)
-            guard isSuccess else {
-                fatalError("не удалось сохранить токен в безопасное хранилище")
-            }
+            OAuth2TokenStorage().token = newValue
         }
     }
     
