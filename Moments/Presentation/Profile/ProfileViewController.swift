@@ -141,8 +141,6 @@ final class ProfileViewController: UIViewController {
             verticalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.horiozontalPaddingNegative),
         ])
     }
-    
-
 }
 
 extension ProfileViewController {
@@ -195,11 +193,11 @@ extension ProfileViewController {
     
     private func showLogoutAlert() {
         let alert = AlertModel(
-            title: "Выйти?",
-            message: "Вы уверны что хотите выйти?",
-            buttonText: "Остаться",
+            title: "Пока, пока!",
+            message: "Уверены что хотите выйти?",
+            buttonText: "Нет",
             completion: nil,
-            secondButtonText: "Выйти",
+            secondButtonText: "Да",
             secondCompletion: { [weak self] in
                 guard let self = self else { return }
                 self.logout()

@@ -93,8 +93,11 @@ final class ImagesListViewController: UIViewController {
             with: photoURL,
             placeholder: placholder
         )
-        cell.dateLabel.text = dateFormatter.string(from: Date())
         cell.likeButton.setImage(likeImage, for: .normal)
+        if let photoCreateDate = photo.createdAt {
+            cell.dateLabel.text = dateFormatter.string(from: photoCreateDate)
+        }
+
     }
     
     func configureImageList() {
