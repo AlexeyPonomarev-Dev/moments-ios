@@ -13,8 +13,6 @@ protocol OAuth2TokenStorageProtocol {
 }
 
 final class OAuth2TokenStorage: OAuth2TokenStorageProtocol {
-    
-    private let userDefaults = UserDefaults.standard
     private enum Keys: String {
         case token
     }

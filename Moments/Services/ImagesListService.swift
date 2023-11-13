@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import SwiftKeychainWrapper
 
 final class ImagesListService {
     static let shared = ImagesListService()
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     private (set) var photos: [Photo] = []
+    private let oauth2Service = OAuth2Service.shared
     private var lastLoadedPage: Int?
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
@@ -28,7 +28,7 @@ final class ImagesListService {
         }
     
         assert(Thread.isMainThread)
-        guard let token = KeychainWrapper.standard.string(forKey: Constants.token) else { return }
+        guard let token = oauth2Service.authToken else { return }
 
         let nextPage = lastLoadedPage == nil
         ? 1
@@ -84,7 +84,7 @@ final class ImagesListService {
     ) {
         assert(Thread.isMainThread)
         if task != nil { return }
-        guard let token = KeychainWrapper.standard.string(forKey: Constants.token) else { return }
+        guard let token = oauth2Service.authToken else { return }
 
 
         let method = isLike ? HttpMethods.delete : HttpMethods.post
@@ -115,6 +115,11 @@ final class ImagesListService {
         
         self.task = task
         task.resume()
+    }
+    
+    func resetPhotos() {
+        photos = []
+        lastLoadedPage = nil
     }
 }
 

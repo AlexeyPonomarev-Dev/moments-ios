@@ -14,7 +14,6 @@ protocol ImagesListCellDelegate: AnyObject {
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
     var gradient: CAGradientLayer? = nil
-    let imageListService = ImagesListService.shared
     weak var delegate: ImagesListCellDelegate?
     private enum Keys {
         static let heart = "heart"

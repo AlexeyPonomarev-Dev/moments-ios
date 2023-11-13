@@ -182,6 +182,7 @@ extension ProfileViewController {
     private func logout() {
         OAuth2TokenStorage().token = nil
         WebViewViewController.clean()
+        ImagesListService.shared.resetPhotos()
         
         guard let window = UIApplication.shared.windows.first else {
             assertionFailure("Something went wrong")
