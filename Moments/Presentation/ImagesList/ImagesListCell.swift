@@ -11,7 +11,7 @@ protocol ImagesListCellDelegate: AnyObject {
     func imageListCellDidTappedLikeButton(_ cell: ImagesListCell)
 }
 
-final class ImagesListCell: UITableViewCell {
+public final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
     var gradient: CAGradientLayer? = nil
     weak var delegate: ImagesListCellDelegate?
@@ -26,7 +26,7 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     
-    override func prepareForReuse() {
+    public override func prepareForReuse() {
         super.prepareForReuse()
         
         preview.kf.cancelDownloadTask()

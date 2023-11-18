@@ -88,7 +88,7 @@
         <!--Web View View Controller-->
         <scene sceneID="Sef-ST-RaA">
             <objects>
-                <viewController id="xc7-yR-bIi" customClass="WebViewViewController" customModule="Moments" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewViewController" id="xc7-yR-bIi" customClass="WebViewViewController" customModule="Moments" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h6U-Qw-2R4">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

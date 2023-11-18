@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Profile {
+public struct Profile {
     let userName, name, bio: String
     var loginName: String {
         "@\(userName)"

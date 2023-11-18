@@ -10,10 +10,19 @@ import ProgressHUD
 import Kingfisher
 import SwiftKeychainWrapper
 
+public protocol ProfileViewControllerProtocol: AnyObject {
+    func didTapedLogoutButton()
+    func showLogoutAlert()
+    func logOut(window: UIWindow)
+    func updateProfileDetails(profile: Profile?)
+    func updateAvatar(url: URL, placeholder: UIImage)
+}
+
 final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
     private var alertPresenter: AlertPresenter? = nil
+    private var presenter: ProfilePresenterProtocol?
     
     private enum Constants {
         static let profileAvatarSize: CGFloat = 70
@@ -25,8 +34,8 @@ final class ProfileViewController: UIViewController {
         static let horiozontalPaddingNegative: CGFloat = -16
         static let fontSizeLarge: CGFloat = 23
         static let fontSizeSmall: CGFloat = 13
-        static let avatarPlaceholderName: String = "avatar-placeholder"
         static let logoutIconName: String = "logout"
+        static let avatarPlaceholderName: String = "avatar-placeholder"
     }
     
     private lazy var horizontalStack: UIStackView = {
@@ -106,6 +115,11 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
+    func configure(_ presenter: ProfilePresenterProtocol) {
+        self.presenter = presenter
+        self.presenter?.view = self
+    }
+    
     override func viewDidLoad() {
 
         horizontalStack.addArrangedSubview(avatarImageView)
@@ -115,7 +129,7 @@ final class ProfileViewController: UIViewController {
         verticalStack.addArrangedSubview(nikNameLabel)
         verticalStack.addArrangedSubview(descriptionLabel)
 
-        updateProfileDetails()
+        presenter?.viewDidLoad()
         setupViewConstraints()
         
         alertPresenter = AlertPresenter(view: self)
@@ -143,16 +157,16 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-extension ProfileViewController {
+extension ProfileViewController: ProfileViewControllerProtocol {
     @objc
-    private func didTapedLogoutButton() {
+    func didTapedLogoutButton() {
         showLogoutAlert()
     }
     
-    private func updateProfileDetails() {
-        nameLabel.text = profileService.profile?.name
-        nikNameLabel.text = profileService.profile?.loginName
-        descriptionLabel.text = profileService.profile?.bio
+    func updateProfileDetails(profile: Profile?) {
+        nameLabel.text = profile?.name
+        nikNameLabel.text = profile?.loginName
+        descriptionLabel.text = profile?.bio
         
         profileImageServiceObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.DidChangeNotification,
@@ -160,39 +174,25 @@ extension ProfileViewController {
             queue: .main
         ) { [weak self] _ in
             guard let self = self else { return }
-            self.updateAvatar()
+            self.presenter?.updateAvatar()
         }
-        updateAvatar()
+        presenter?.updateAvatar()
     }
     
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-
+    func updateAvatar(url: URL, placeholder: UIImage) {
         avatarImageView.kf.indicatorType = .activity
         avatarImageView.kf.setImage(
             with: url,
-            placeholder: UIImage(named: Constants.avatarPlaceholderName),
+            placeholder: placeholder,
             options: [.transition(.fade(1))]
         )
     }
     
-    private func logout() {
-        OAuth2TokenStorage().token = nil
-        WebViewViewController.clean()
-        ImagesListService.shared.resetPhotos()
-        
-        guard let window = UIApplication.shared.windows.first else {
-            assertionFailure("Something went wrong")
-            return
-        }
-        
+    func logOut(window: UIWindow) {
         window.rootViewController = SplashScreenViewController()
     }
     
-    private func showLogoutAlert() {
+    func showLogoutAlert() {
         let alert = AlertModel(
             title: "Пока, пока!",
             message: "Уверены что хотите выйти?",
@@ -201,7 +201,7 @@ extension ProfileViewController {
             secondButtonText: "Да",
             secondCompletion: { [weak self] in
                 guard let self = self else { return }
-                self.logout()
+                self.presenter?.logOut()
             }
         )
         alertPresenter?.show(alert)
