@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserResponseBody: Codable {
+struct UserResult: Codable {
     let profileImage: ProfileImage
 
     enum CodingKeys: String, CodingKey {

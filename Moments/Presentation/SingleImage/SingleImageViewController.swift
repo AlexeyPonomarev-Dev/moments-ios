@@ -8,13 +8,9 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
-    var image: UIImage! {
-        didSet {
-            guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
-        }
-    }
+    var largeImageURL: URL? = nil
+    private var activityController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+    private var alertPresenter: AlertPresenter? = nil
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
@@ -23,8 +19,16 @@ final class SingleImageViewController: UIViewController {
         super.viewDidLoad()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+        alertPresenter = AlertPresenter(view: self)
+        downloadImage()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let image = imageView.image {
+            rescaleAndCenterImageInScrollView(image: image)
+        }
     }
     
     @IBAction func didBackButtonTap(_ sender: Any) {
@@ -33,10 +37,48 @@ final class SingleImageViewController: UIViewController {
     
     @IBAction func didTapShareButton(_ sender: Any) {
         let share = UIActivityViewController(
-            activityItems: [image],
+            activityItems: [imageView.image ?? UIImage()],
             applicationActivities: nil
         )
         present(share, animated: true, completion: nil)
+    }
+    
+    func downloadImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: largeImageURL) { [weak self] result in
+            guard let self = self else { return }
+            UIBlockingProgressHUD.dismiss()
+
+            switch result {
+                case .success(let imageResult):
+                    self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+                    activityController = UIActivityViewController(
+                        activityItems: [imageResult.image as Any],
+                        applicationActivities: nil
+                    )
+                case .failure:
+                    self.showError()
+            }
+        }
+    }
+    
+    func showError() {
+        let alert = AlertModel(
+            title: "Что-то пошло не так.",
+            message: "Попробовать ещё раз?",
+            buttonText: "Не надо",
+            completion: { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true)
+            },
+            secondButtonText: "Повторить",
+            secondCompletion: { [weak self] in
+                guard let self = self else { return }
+                UIBlockingProgressHUD.show()
+                downloadImage()
+            })
+    
+        alertPresenter?.show(alert)
     }
 
     private func rescaleAndCenterImageInScrollView(image: UIImage) {

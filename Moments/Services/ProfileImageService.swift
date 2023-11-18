@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import SwiftKeychainWrapper
 
 final class ProfileImageService {
     static let shared = ProfileImageService()
     static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    private let oauth2Service = OAuth2Service.shared
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private (set) var avatarURL: String?
@@ -27,11 +27,11 @@ final class ProfileImageService {
         assert(Thread.isMainThread)
         self.task?.cancel()
 
-        guard let token = KeychainWrapper.standard.string(forKey: Constants.token) else { return }
+        guard let token = oauth2Service.authToken else { return }
 
         var request = profileImageRequest(userName)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResponseBody ,Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult ,Error>) in
         
             DispatchQueue.main.async {
                 guard let self = self else { return }
@@ -64,7 +64,7 @@ final class ProfileImageService {
 extension ProfileImageService {
     private func profileImageRequest(_ userName: String) -> URLRequest {
         URLRequest.makeHTTPRequest(
-            path: "\(Constants.profilePublicPath)/\(userName)",
+            path: "\(Constants.usersPath)/\(userName)",
             httpMethod: "GET"
         )
     }
