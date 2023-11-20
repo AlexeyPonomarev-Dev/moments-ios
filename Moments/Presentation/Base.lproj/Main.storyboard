@@ -41,6 +41,9 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80K-6S-cgE">
                                 <rect key="frame" x="16" y="680" width="361" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Bul-8o-cdq"/>
                                 </constraints>
@@ -188,6 +191,9 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZd-Vy-div" userLabel="Like button">
                                                     <rect key="frame" x="333" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="LikeButton">
+                                                        <bool key="isElement" value="NO"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="1jo-QJ-ZAf"/>
                                                         <constraint firstAttribute="height" constant="44" id="4cm-f9-U2n"/>
@@ -276,6 +282,9 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iq-IX-ZbB">
                                 <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="BackButton">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="6LK-g3-jLQ"/>
                                     <constraint firstAttribute="height" constant="48" id="XfH-VB-tYd"/>

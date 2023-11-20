@@ -28,6 +28,7 @@
 		998FECF52ACB53FE0097C3F7 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998FECF42ACB53FE0097C3F7 /* URLSession+Extensions.swift */; };
 		998FECF82ACB5E9E0097C3F7 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998FECF72ACB5E9E0097C3F7 /* URLRequest+Extension.swift */; };
 		998FECFC2ACB5F550097C3F7 /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998FECFB2ACB5F550097C3F7 /* OAuth2TokenStorage.swift */; };
+		99A7E0832B0A6723001FB734 /* MomentsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A7E0822B0A6723001FB734 /* MomentsUITests.swift */; };
 		99A951C32ACDB2EB0074694D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99A951C22ACDB2EB0074694D /* Assets.xcassets */; };
 		99B15CC52AA7B93000F83806 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B15CC42AA7B93000F83806 /* UIView+Extensions.swift */; };
 		99B15CC72AAC4CA300F83806 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B15CC62AAC4CA300F83806 /* ProfileViewController.swift */; };
@@ -61,6 +62,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		99A7E0862B0A6723001FB734 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99BD1A2A2A9D2EE2005456AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 99BD1A312A9D2EE2005456AA;
+			remoteInfo = Moments;
+		};
 		99C83B3C2AEE3B75005BB830 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 99BD1A2A2A9D2EE2005456AA /* Project object */;
@@ -97,6 +105,8 @@
 		998FECF42ACB53FE0097C3F7 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		998FECF72ACB5E9E0097C3F7 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		998FECFB2ACB5F550097C3F7 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
+		99A7E0802B0A6723001FB734 /* MomentsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MomentsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		99A7E0822B0A6723001FB734 /* MomentsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsUITests.swift; sourceTree = "<group>"; };
 		99A951C22ACDB2EB0074694D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99B15CC42AA7B93000F83806 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		99B15CC62AAC4CA300F83806 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +143,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		99A7E07D2B0A6723001FB734 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99BD1A2F2A9D2EE2005456AA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,6 +269,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		99A7E0812B0A6723001FB734 /* MomentsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				99A7E0822B0A6723001FB734 /* MomentsUITests.swift */,
+			);
+			path = MomentsUITests;
+			sourceTree = "<group>";
+		};
 		99B15CC82AAC4CCD00F83806 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +308,7 @@
 			children = (
 				99BD1A342A9D2EE2005456AA /* Moments */,
 				99C83B4E2B08D07A005BB830 /* Moments Tests */,
+				99A7E0812B0A6723001FB734 /* MomentsUITests */,
 				99BD1A332A9D2EE2005456AA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -293,6 +319,7 @@
 				99BD1A322A9D2EE2005456AA /* Moments.app */,
 				99C83B382AEE3B75005BB830 /* MomentsTests.xctest */,
 				99C83B4D2B08D07A005BB830 /* Moments Tests.xctest */,
+				99A7E0802B0A6723001FB734 /* MomentsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -373,6 +400,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		99A7E07F2B0A6723001FB734 /* MomentsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99A7E08A2B0A6723001FB734 /* Build configuration list for PBXNativeTarget "MomentsUITests" */;
+			buildPhases = (
+				99A7E07C2B0A6723001FB734 /* Sources */,
+				99A7E07D2B0A6723001FB734 /* Frameworks */,
+				99A7E07E2B0A6723001FB734 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				99A7E0872B0A6723001FB734 /* PBXTargetDependency */,
+			);
+			name = MomentsUITests;
+			productName = MomentsUITests;
+			productReference = 99A7E0802B0A6723001FB734 /* MomentsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		99BD1A312A9D2EE2005456AA /* Moments */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99BD1A462A9D2EE3005456AA /* Build configuration list for PBXNativeTarget "Moments" */;
@@ -441,6 +486,10 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					99A7E07F2B0A6723001FB734 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 99BD1A312A9D2EE2005456AA;
+					};
 					99BD1A312A9D2EE2005456AA = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -475,11 +524,19 @@
 				99BD1A312A9D2EE2005456AA /* Moments */,
 				99C83B372AEE3B75005BB830 /* MomentsTests */,
 				99C83B4C2B08D07A005BB830 /* Moments Tests */,
+				99A7E07F2B0A6723001FB734 /* MomentsUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		99A7E07E2B0A6723001FB734 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99BD1A302A9D2EE2005456AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -507,6 +564,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		99A7E07C2B0A6723001FB734 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99A7E0832B0A6723001FB734 /* MomentsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99BD1A2E2A9D2EE2005456AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -576,6 +641,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		99A7E0872B0A6723001FB734 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 99BD1A312A9D2EE2005456AA /* Moments */;
+			targetProxy = 99A7E0862B0A6723001FB734 /* PBXContainerItemProxy */;
+		};
 		99C83B3D2AEE3B75005BB830 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 99BD1A312A9D2EE2005456AA /* Moments */;
@@ -608,6 +678,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		99A7E0882B0A6723001FB734 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexey.dev.MomentsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Moments;
+			};
+			name = Debug;
+		};
+		99A7E0892B0A6723001FB734 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexey.dev.MomentsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Moments;
+			};
+			name = Release;
+		};
 		99BD1A442A9D2EE3005456AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -857,6 +961,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		99A7E08A2B0A6723001FB734 /* Build configuration list for PBXNativeTarget "MomentsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99A7E0882B0A6723001FB734 /* Debug */,
+				99A7E0892B0A6723001FB734 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		99BD1A2D2A9D2EE2005456AA /* Build configuration list for PBXProject "Moments" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

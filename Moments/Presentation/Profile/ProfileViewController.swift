@@ -77,6 +77,7 @@ final class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.fontSizeLarge, weight: .bold)
         label.textColor = UIColor.ypWhite
+        label.accessibilityIdentifier = "NameLabel"
         
         return label
     }()
@@ -87,6 +88,7 @@ final class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.fontSizeSmall, weight: .medium)
         label.textColor = UIColor.ypGray
+        label.accessibilityIdentifier = "NikNameLabel"
         
         return label
     }()
@@ -111,6 +113,7 @@ final class ProfileViewController: UIViewController {
             self, action: #selector(self.didTapedLogoutButton),
             for: UIControl.Event.touchUpInside
         )
+        button.accessibilityIdentifier = "LogOutButton"
 
         return button
     }()
