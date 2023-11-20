@@ -20,4 +20,13 @@ final class ImagesListTests: XCTestCase {
         
         XCTAssertTrue(imagesListViewPresenter.configureImageListCalled)
     }
+    
+    func testUpdateTableViewAnimated() {
+        let imageListViewController = ImagesListViewControllerSpy()
+        
+        imageListViewController.updateTableViewAnimated(oldCount: 1, newCount: 2)
+        
+        XCTAssertTrue(imageListViewController.nextPageFetched)
+    
+    }
 }

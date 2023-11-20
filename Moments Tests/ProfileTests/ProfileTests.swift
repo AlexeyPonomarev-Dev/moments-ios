@@ -20,4 +20,22 @@ final class ProfileTests: XCTestCase {
         
         XCTAssertTrue(profilePresenter.viewDidLoadCalled)
     }
+    
+    func testLogOutCall() {
+        let profilePresenter = ProfilePresenterSpy()
+    
+        profilePresenter.logOut()
+        
+        XCTAssertTrue(profilePresenter.logOutCalled)
+        
+    }
+    
+    func testUpdateAvatarCall() {
+        let profilePresenter = ProfilePresenterSpy()
+    
+        profilePresenter.updateAvatar()
+        
+        XCTAssertTrue(profilePresenter.updateAvatarCalled)
+        
+    }
 }
