@@ -18,7 +18,7 @@ public enum Constants {
     static let profilePath: String = "/me"
     static let usersPath: String = "/users"
     static let photosPath: String = "/photos"
-
+    
     
     static let token = "Auth token"
     static let main = "Main"

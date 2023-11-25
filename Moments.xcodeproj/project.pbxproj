@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		991008B92B0FD176002639AE /* LogOutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991008B82B0FD176002639AE /* LogOutService.swift */; };
 		991C27E72AC210C90095F968 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C27E62AC210C90095F968 /* Constants.swift */; };
 		991C27EA2AC6028D0095F968 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C27E92AC6028D0095F968 /* AuthViewController.swift */; };
 		991C27EC2AC6033F0095F968 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C27EB2AC6033F0095F968 /* WebViewViewController.swift */; };
@@ -86,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		991008B82B0FD176002639AE /* LogOutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutService.swift; sourceTree = "<group>"; };
 		991C27E62AC210C90095F968 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		991C27E92AC6028D0095F968 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		991C27EB2AC6033F0095F968 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				9975DB632ADD0BFC00DE80DC /* ProfileImageService.swift */,
 				99C83B2E2AED068C005BB830 /* ImagesListService.swift */,
 				99C83B412AEE4447005BB830 /* DateService.swift */,
+				991008B82B0FD176002639AE /* LogOutService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				99C83B332AED1B7C005BB830 /* ImageListResult.swift in Sources */,
 				9959710F2ACDB026009DC120 /* SplashScreenViewController.swift in Sources */,
 				991C27EA2AC6028D0095F968 /* AuthViewController.swift in Sources */,
+				991008B92B0FD176002639AE /* LogOutService.swift in Sources */,
 				996AF12D2AA6F8860092D871 /* UIColor+Extensions.swift in Sources */,
 				9975DB662ADD0C5D00DE80DC /* UserResult.swift in Sources */,
 				99C83B422AEE4447005BB830 /* DateService.swift in Sources */,

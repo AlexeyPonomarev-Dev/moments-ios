@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import WebKit
 
 public protocol WebViewPresenterProtocol {
     var view: WebViewViewControllerProtocol? { get set }
@@ -19,7 +18,7 @@ public protocol WebViewPresenterProtocol {
 final class WebViewPresenter: WebViewPresenterProtocol {
     weak var view: WebViewViewControllerProtocol?
     var authHelper: AuthHelperProtocol
-
+    
     private enum QueryKeys {
         static let clientId: String = "client_id"
         static let redirectUri: String = "redirect_uri"
@@ -28,9 +27,9 @@ final class WebViewPresenter: WebViewPresenterProtocol {
     }
     
     init(authHelper: AuthHelperProtocol) {
-           self.authHelper = authHelper
+        self.authHelper = authHelper
     }
-
+    
     
     func viewDidLoad() {
         let request = authHelper.authRequest()
@@ -52,5 +51,5 @@ final class WebViewPresenter: WebViewPresenterProtocol {
     
     func code(from url: URL) -> String? {
         authHelper.code(from: url)
-    } 
+    }
 }

@@ -27,7 +27,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func logOut() {
         OAuth2TokenStorage().token = nil
-        WebViewViewController.clean()
+        LogOutService.clean()
         ImagesListService.shared.resetPhotos()
         
         guard let window = UIApplication.shared.windows.first else {
