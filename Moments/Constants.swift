@@ -18,7 +18,7 @@ public enum Constants {
     static let profilePath: String = "/me"
     static let usersPath: String = "/users"
     static let photosPath: String = "/photos"
-
+    
     
     static let token = "Auth token"
     static let main = "Main"
@@ -26,6 +26,7 @@ public enum Constants {
     static let tabBarIdentifier = "TabBarViewController"
     static let authIdentifier = "AuthViewController"
     static let imageListItentifier = "ImagesListViewController"
+    
 }
 
 public enum HttpMethods {
